@@ -1,0 +1,115 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}" lang="en">
+<head>
+    <title>Spring Boot - Thymeleaf Example</title>
+
+
+    <script type="text/javascript">
+        window.onload = function () {
+            var refButton = document.getElementById("add-evaluation");
+
+            refButton.onclick = function () {
+                const evaluations = document.querySelectorAll('[id^=jobEvaluationTypeEnum]');
+                const lastEvaluation = evaluations[evaluations.length - 1];
+                const newEvaluation = lastEvaluation.cloneNode(true);
+                const newId = parseInt(lastEvaluation.id.split('.')[1]) + 1;
+                newEvaluation.id = `jobEvaluationTypeEnum.${newId}`;
+                newEvaluation.name = `jobEvaluationTypeEnum[]`;
+                lastEvaluation.parentNode.appendChild(newEvaluation);
+            }
+
+            var removeButton = document.getElementById("remove-evaluation");
+
+            removeButton.onclick = function () {
+                const evaluations = document.querySelectorAll('[id^=evaluation-]');
+                const lastEvaluation = evaluations[evaluations.length - 1];
+                if (evaluations.length > 1) {
+                    lastEvaluation.parentNode.removeChild(lastEvaluation);
+                }
+            }
+
+        }
+    </script>
+</head>
+<body>
+<!--<header th:replace="~{fragments/general :: header}"> sexo</header>-->
+<!--           <form-->
+<!--                    action="#" method="post"-->
+<!--                    class=" bg-white shadow-sm ring-1 ring-gray-900 sm:rounded-xl md:col-span-2">-->
+<!--                &lt;!&ndash;          th:action="@{/fragments}" th:object="${com.karpco.havegan.dto.jobs.CreateJobRequest}"&ndash;&gt;-->
+
+<div layout:fragment="content" class="">
+    <form
+            class="lg:p-12 p-6 bg-white md:col-span-2"
+            action="/mvc/jobs/create/" method="post"
+    >
+        <div class="space-y-12">
+            <div class="border-b border-gray-900/10 pb-12">
+                <h2 class="text-base font-semibold leading-7 text-gray-900">New Position</h2>
+                <p class="mt-1 text-sm leading-6 text-gray-600">
+                    This information will be displayed publicly so be careful what you share.</p>
+
+                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+
+                    <div class="sm:col-span-4">
+                        <label class="block text-sm font-medium leading-6 text-gray-900">Position Name</label>
+                        <div class="mt-2">
+                            <input id="name" name="name" type="name" autocomplete="job-title"
+                                   class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        </div>
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <label id="evaluation"
+                               class="block text-sm font-medium leading-6 text-gray-900">Evaluations</label>
+                        <div>
+                            <button
+                                    id="add-evaluation"
+                                    type="button"
+                                    class="text-sm font-semibold leading-6 text-gray-900 bg-green-300 rounded-xl">
+                                Add Evaluation
+                            </button>
+                            <button
+                                    id="remove-evaluation"
+                                    type="button"
+                                    class="text-sm font-semibold leading-6 text-gray-900 bg-green-300 rounded-xl">
+                                Remove Evaluation
+                            </button>
+                        </div>
+                        <div class="mt-2 evaluation-container">
+                            <select
+                                    id="jobEvaluationTypeEnum.0" name="jobEvaluationTypeEnum[]" autocomplete="evaluation-name"
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                <option
+                                        th:each="jobApplicationType: ${jobApplicationTypes}"
+                                        th:text="${jobApplicationType}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-6 flex items-center justify-end gap-x-6">
+            <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+            <button type="submit"
+                    class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                Save
+            </button>
+        </div>
+
+
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}"/>
+    </form>
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -34,8 +34,4 @@ public class Organization extends BaseEntityAudit {
 
     @OneToMany(mappedBy = "organization")
     private List<Job> jobs;
-
-    @ManyToOne
-    private Organization organization;
-
 }

@@ -1,9 +1,12 @@
 package com.karpco.havegan.service.impl;
 
+import com.karpco.havegan.entity.core.User;
+import com.karpco.havegan.repository.UserRepository;
 import com.karpco.havegan.service.JWTService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
@@ -37,8 +40,8 @@ public class JWTServiceImpl implements JWTService {
         return this.jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
 
+
     public Long getJwtExpirationInMillis() {
         return jwtExpirationInMillis;
     }
-
 }

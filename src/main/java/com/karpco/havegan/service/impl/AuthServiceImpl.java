@@ -5,6 +5,7 @@ import com.karpco.havegan.dto.auth.LoginRequest;
 import com.karpco.havegan.dto.auth.SignupRequest;
 import com.karpco.havegan.entity.core.Organization;
 import com.karpco.havegan.entity.core.User;
+import com.karpco.havegan.repository.OrganizationRepository;
 import com.karpco.havegan.repository.UserRepository;
 import com.karpco.havegan.service.AuthService;
 import com.karpco.havegan.service.JWTService;
@@ -23,11 +24,15 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     UserRepository userRepository;
 
+
     private final AuthenticationManager authenticationManager;
 
     private final JWTService jwtService;
 
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private OrganizationRepository organizationRepository;
 
     @Autowired
     public AuthServiceImpl(AuthenticationManager authenticationManager, JWTService jwtService, PasswordEncoder passwordEncoder) {
@@ -56,6 +61,9 @@ public class AuthServiceImpl implements AuthService {
     }
 
     public JWTAuthResponse signup(SignupRequest signupRequest) {
+        if (userRepository.existsByEmail(signupRequest.getEmail())) {
+            throw new RuntimeException("Email already exists");
+        }
         User user = new User();
 
         user.setEmail(signupRequest.getEmail());
@@ -74,7 +82,8 @@ public class AuthServiceImpl implements AuthService {
         users.add(savedUser);
 
         organization.setUsers(users);
-
+//
+        organizationRepository.save(organization);
 
         UsernamePasswordAuthenticationToken usernameAuthToken = new UsernamePasswordAuthenticationToken(
                 savedUser.getEmail(),

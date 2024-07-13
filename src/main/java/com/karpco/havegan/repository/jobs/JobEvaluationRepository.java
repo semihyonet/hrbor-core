@@ -14,7 +14,5 @@ public interface JobEvaluationRepository extends Repository<JobEvaluation, Strin
 
     public List<JobEvaluation> findJobEvaluationsByJob(Job job);
 
-    public List<JobEvaluation> findJobEvaluationsByJobApplicant(JobApplicant jobApplicant);
-
     public JobEvaluation save(JobEvaluation jobEvaluation);
 }

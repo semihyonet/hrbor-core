@@ -7,6 +7,7 @@ import com.karpco.havegan.enums.jobs.JobEvaluationTypeEnum;
 import com.karpco.havegan.repository.jobs.JobEvaluationRepository;
 import com.karpco.havegan.service.JobEvaluationService;
 import com.karpco.havegan.service.SpecificJobEvaluationService;
+import com.karpco.havegan.service.impl.SpecificJobEvaluationService.HrPhoneCallJobEvaluationService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,6 +66,11 @@ public class JobEvaluationServiceImpl implements JobEvaluationService {
      */
     @Override
     public SpecificJobEvaluationService getSpecificJobEvaluationService(JobEvaluationTypeEnum jobEvaluationTypeEnum) {
-        return null;
+        switch (jobEvaluationTypeEnum) {
+            case AI_PHONE_CALL:
+                return new HrPhoneCallJobEvaluationService();
+            default:
+                return new HrPhoneCallJobEvaluationService();
+        }
     }
 }

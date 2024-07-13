@@ -14,19 +14,16 @@ import java.util.ArrayList;
 @Entity
 @Table(name = "job_evaluation")
 public class JobEvaluation extends BaseEntityAudit {
-    @Column(nullable = false, name = "name")
-    private String name;
 
     @ManyToOne
     private Job job;
 
+    @Column(name = "order_number")
+    private short order = 0;
+
     @Column(nullable = false, name = "job_evaluation_type")
     private JobEvaluationTypeEnum jobEvaluationTypeEnum;
 
-    @ManyToOne
-    private JobApplicant jobApplicant;
-
     @OneToMany(mappedBy = "jobEvaluation")
-    private ArrayList<JobApplicantEvaluationQuestion> jobApplicantEvaluationQuestion;
+    private ArrayList<JobApplicantEvaluation> jobApplicantEvaluations;
 }
-

@@ -19,7 +19,7 @@ public class Job extends BaseEntityAudit {
     private String name;
 
     @OneToMany(mappedBy = "job")
-    private ArrayList<JobApplicant> jobApplicants;
+    private List<JobApplicant> jobApplicants;
 
     @ManyToOne
     private Organization organization;

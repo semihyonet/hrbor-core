@@ -9,7 +9,7 @@ import java.util.UUID;
 
 
 public interface OrganizationRepository extends Repository<Organization, String> {
-    Organization save(User user);
+    Organization save(Organization user);
 
     Organization findById(UUID id);
 }

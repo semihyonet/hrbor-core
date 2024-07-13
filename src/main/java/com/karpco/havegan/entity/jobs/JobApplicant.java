@@ -31,7 +31,5 @@ public class JobApplicant extends BaseEntityAudit {
     private Job job;
 
     @OneToMany(mappedBy="jobApplicant")
-    private ArrayList<JobEvaluation> jobEvaluations;
+    private ArrayList<JobApplicantEvaluation> jobApplicantEvaluations;
 }
-
-

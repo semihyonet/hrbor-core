@@ -18,6 +18,7 @@ public class JobApplicantEvaluationQuestion extends BaseEntityAudit {
     private String answer = "NA";
 
     @ManyToOne
-    private JobEvaluation jobEvaluation;
+    private JobApplicantEvaluation jobApplicantEvaluation;
+
 }
 

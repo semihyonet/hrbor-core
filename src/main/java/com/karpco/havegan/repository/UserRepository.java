@@ -22,6 +22,8 @@ public interface UserRepository extends Repository<User, String> {
 
     boolean existsById(UUID id);
 
+    boolean existsByEmail(String email);
+
     long count();
 
     long countById(UUID id);
